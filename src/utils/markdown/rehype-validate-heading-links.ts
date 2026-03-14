@@ -12,7 +12,9 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			| undefined;
 
 		if (!headingsWithIds) {
-			throw new Error("[rehypeValidateAnchorLinks] Missing `headingsWithIds`.");
+			throw new Error(
+				"[rehypeValidateHeadingLinks] Missing `headingsWithIds`.",
+			);
 		}
 	};
 };
