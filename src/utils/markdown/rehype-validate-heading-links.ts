@@ -1,6 +1,6 @@
 import { Root } from "hast";
 import { Plugin } from "unified";
-import { CONTINUE, visit } from "unist-util-visit";
+import { visit } from "unist-util-visit";
 import { isMarkdownVFile } from "./types";
 
 /**
@@ -20,17 +20,23 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 
 		visit(tree, { type: "element", tagName: "a" }, (node) => {
 			const href = node.properties["href"];
-			if (typeof href !== "string" || !href.startsWith("#")) return CONTINUE;
+			if (typeof href !== "string" || !href.startsWith("#")) return;
 
-			const headingSlug = headingSlugsMap.get(href.slice(1).toLowerCase());
+			const targetHeadingSlug = href.slice(1);
+			const headingSlug = headingSlugsMap.get(targetHeadingSlug.toLowerCase());
 			if (!headingSlug) {
 				console.warn(
 					`[${rehypeValidateHeadingLinks.name}] Unknown anchor link to heading "${href}" in "${file.path}".`,
 				);
-				return CONTINUE;
+				return;
 			}
 
-			node.properties["href"] = `#${headingSlug}`;
+			if (headingSlug !== targetHeadingSlug) {
+				console.warn(
+					`[${rehypeValidateHeadingLinks.name}] Anchor link to heading "${href}" has wrong case. Replacing with "#${headingSlug}" in "${file.path}".`,
+				);
+				node.properties["href"] = `#${headingSlug}`;
+			}
 		});
 	};
 };
