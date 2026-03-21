@@ -19,7 +19,7 @@ export async function rehypeTransformGist({
 	const file = gist.files[0];
 
 	const fileContent = await fetch(file.contentUrl).then((r) => r.text());
-	const { contents, truncated } = limitStringToNLines(fileContent, 10);
+	const { contents, truncated } = limitStringToNLines(fileContent, 30);
 	// This is the language from GitHub's API, might not align with Shiki's lang code
 	const language = file.language?.toLowerCase() ?? "text";
 
@@ -42,17 +42,17 @@ export async function rehypeTransformGist({
 	];
 }
 
-function limitStringToNLines(longString: string, _numberOfLines: number) {
+function limitStringToNLines(longString: string, numberOfLines: number) {
 	// Split the string into an array of lines based on newline characters
 	const lines = longString.split("\n");
 
 	// If the number of lines is already 30 or less, return the original string
-	if (lines.length <= 30) {
+	if (lines.length <= numberOfLines) {
 		return { contents: longString, truncated: false };
 	}
 
 	// Slice the array to get only the first 30 lines
-	const limitedLines = lines.slice(0, 30);
+	const limitedLines = lines.slice(0, numberOfLines);
 
 	// Join the limited lines back into a single string with newline characters
 	const result = limitedLines.join("\n");
