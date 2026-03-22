@@ -120,24 +120,23 @@ export default function BookClub({ eventBlocksWithMetadata }: BookClubProps) {
 
 	const { pastEventBlocks, currentEventBlock } = useMemo(() => {
 		const pastEventBlocks: EventBlockWithMetadata[] = [];
+		const currentEventsBlock: EventBlockWithMetadata[] = [];
 		const now = new Date();
 
-		let currentEventIndex = -1;
-		for (let i = 0; i < sortedEventBlocks.length; i++) {
-			const block = sortedEventBlocks[i];
-			if (block.starts_at < now) {
-				pastEventBlocks.push(block);
-				continue;
+		let foundFuture = false;
+		for (const block of sortedEventBlocks) {
+			if (!foundFuture && block.starts_at > now) {
+				foundFuture = true;
 			}
 
-			// Because the events are sorted chronologically, we can do this safely
-			currentEventIndex = i;
-			break;
+			if (foundFuture) {
+				currentEventsBlock.push(block);
+			} else {
+				pastEventBlocks.push(block);
+			}
 		}
 
-		const currentEventBlock = sortedEventBlocks.slice(currentEventIndex);
-
-		return { pastEventBlocks, currentEventBlock };
+		return { pastEventBlocks, currentEventBlock: currentEventsBlock };
 	}, [sortedEventBlocks]);
 
 	return (
