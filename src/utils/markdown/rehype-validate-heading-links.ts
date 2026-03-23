@@ -2,6 +2,7 @@ import { Root } from "hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { isMarkdownVFile } from "./types";
+import { logError } from "./logger";
 
 /**
  * Plugin to validate anchor links to headings and ensure their case matches their target heading IDs.
@@ -25,14 +26,18 @@ export const rehypeValidateHeadingLinks: Plugin<[], Root> = () => {
 			const targetHeadingSlug = href.slice(1);
 			const headingSlug = headingSlugsMap.get(targetHeadingSlug.toLowerCase());
 			if (!headingSlug) {
-				console.warn(
+				logError(
+					file,
+					node,
 					`[${rehypeValidateHeadingLinks.name}] Unknown anchor link to heading "${href}" in "${file.path}".`,
 				);
 				return;
 			}
 
 			if (headingSlug !== targetHeadingSlug) {
-				console.warn(
+				logError(
+					file,
+					node,
 					`[${rehypeValidateHeadingLinks.name}] Anchor link to heading "${href}" has wrong case. Replacing with "#${headingSlug}" in "${file.path}".`,
 				);
 				node.properties["href"] = `#${headingSlug}`;
