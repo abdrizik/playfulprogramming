@@ -20,7 +20,7 @@
 	},
 	"packageManager": "pnpm@10.28.1",
 	"engines": {
-		"node": "22.x"
+		"node": "24.x"
 	},
 	"scripts": {
 		"debug": "NODE_OPTIONS='--inspect-brk' astro dev --verbose",
