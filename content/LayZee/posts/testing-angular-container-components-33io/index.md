@@ -50,7 +50,7 @@ Our container component delegates to a `HeroService` for commands and queries ag
 
 Read an example of how types in TypeScript can be sneaky, especially for developers used to developing in mainstream C-family object-oriented programming languages such as C# and Java.
 
-“[Sorry C# and Java developers, this is not how TypeScript works](https://https://dev.to/playfulprogramming/sorry-c-and-java-developers-this-is-not-how-typescript-works-401)”
+“[Sorry C# and Java developers, this is not how TypeScript works](https://dev.to/playfulprogramming/sorry-c-and-java-developers-this-is-not-how-typescript-works-401)”
 
 ---
 

@@ -254,7 +254,7 @@ We will build isolated unit tests in which we stub service dependencies using Ja
 
 # Related articles
 
-Learn about the history of the Model-View-Presenter pattern and how its sibling pattern Model-View-Controller was introduced to client-side UI frameworks for the web. Read “[The history of Model-View-Presenter](https://https://dev.to/playfulprogramming/the-history-of-model-view-presenter-420h)”.
+Learn about the history of the Model-View-Presenter pattern and how its sibling pattern Model-View-Controller was introduced to client-side UI frameworks for the web. Read “[The history of Model-View-Presenter](https://dev.to/playfulprogramming/the-history-of-model-view-presenter-420h)”.
 
 Are you sick of worrying about state management and back-end stuff in your Angular components? Extract all that nasty non-presentational logic into container components. Read how in “[Container components with Angular](https://dev.to/playfulprogramming-angular/container-components-with-angular-4o05)”.
 
