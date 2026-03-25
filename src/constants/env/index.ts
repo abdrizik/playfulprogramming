@@ -4,8 +4,7 @@ let isAstro: boolean;
 try {
 	// This will throw an error if run on node without Vite, as import.meta.env is undefined
 	// (when run through Astro, this entire statement will be statically replaced)
-	String(import.meta.env.MODE);
-	isAstro = true;
+	isAstro = import.meta.env.BUILD_OUTPUT !== "server";
 } catch (_) {
 	isAstro = false;
 }

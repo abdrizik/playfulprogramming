@@ -1,4 +1,14 @@
 services:
+  fakeserver:
+    build:
+      context: ..
+      dockerfile: e2e/Dockerfile
+      target: fakeserver
+    working_dir: /work/e2e
+    environment:
+      HOOF_URL: http://fakeserver:8080
+    command: node --experimental-strip-types src/server.ts
+
   web:
     working_dir: /work
     build:
@@ -6,10 +16,14 @@ services:
       context: ..
       dockerfile: e2e/Dockerfile
     environment:
-      - USE_E2E_MOCKS=true
-      - GIT_COMMIT_REF=main
-      - ASTRO_TELEMETRY_DISABLED=1
-    command: pnpm dev --host 0.0.0.0 --port 4321
+      HOOF_URL: http://fakeserver:8080
+      GIT_COMMIT_REF: main
+      ASTRO_TELEMETRY_DISABLED: 1
+      HOST: 0.0.0.0
+      PORT: 4321
+    command: node dist/server/entry.mjs
+    ports:
+      - 4321:4321
     healthcheck:
       test:
         - CMD

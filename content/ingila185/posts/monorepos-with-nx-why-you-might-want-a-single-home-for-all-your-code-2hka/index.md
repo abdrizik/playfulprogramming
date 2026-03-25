@@ -5,7 +5,7 @@ published: "2024-09-11T17:33:13Z",
 edited: "2024-09-11T17:33:25Z",
 tags: ["javascript", "typescript", "opensource", "git"],
 description: "Ever felt like your codebase is scattered across a million different repositories? That’s the life of...",
-originalLink: "https://https://dev.to/playfulprogramming/monorepos-with-nx-why-you-might-want-a-single-home-for-all-your-code-2hka",
+originalLink: "https://dev.to/playfulprogramming/monorepos-with-nx-why-you-might-want-a-single-home-for-all-your-code-2hka",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

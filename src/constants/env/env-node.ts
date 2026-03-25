@@ -1,10 +1,12 @@
 import { Environment } from "./types";
 
+const MODE = process.env.MODE ?? "development";
+
 export default {
 	CI: Boolean(process.env.CI),
-	MODE: process.env.MODE ?? "development",
-	PROD: process.env.MODE == "production",
-	DEV: process.env.MODE != "production",
+	MODE,
+	PROD: MODE === "production",
+	DEV: MODE === "development",
 	SITE_URL: process.env.SITE_URL ?? "https://playfulprogramming.com",
 	GIT_COMMIT_REF:
 		process.env.GIT_COMMIT_REF ?? process.env.VERCEL_GIT_COMMIT_REF,

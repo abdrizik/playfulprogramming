@@ -5,7 +5,7 @@ published: "2020-11-18T11:05:09Z",
 edited: "2020-11-24T20:34:03Z",
 tags: ["webdev", "history", "modelviewpresenter", "modelviewcontroller"],
 description: "Dust off the history books and discover the origins of the MVP pattern.",
-originalLink: "https://https://dev.to/playfulprogramming/the-history-of-model-view-presenter-420h",
+originalLink: "https://dev.to/playfulprogramming/the-history-of-model-view-presenter-420h",
 coverImg: "cover-image.png",
 socialImg: "social-image.png"
 }

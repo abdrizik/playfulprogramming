@@ -1,6 +1,5 @@
+import type { FastifyPluginAsync } from "fastify";
 import type { UrlMetadataResponse } from "utils/hoof";
-import env from "../../../src/constants/env";
-import { http } from "msw";
 import { createRequire } from "module";
 import { readFile } from "fs/promises";
 
@@ -116,7 +115,7 @@ const fakePostNotFoundMetadata: UrlMetadataResponse = {
 	},
 };
 
-const fakeGistFileUrl = "https://example.test/url-metadata/gistfile1.txt";
+const fakeGistFileUrl = "/url-metadata/gistfile1.txt";
 
 const fakeGistMetadata: UrlMetadataResponse = {
 	error: false,
@@ -127,7 +126,7 @@ const fakeGistMetadata: UrlMetadataResponse = {
 			files: [
 				{
 					filename: "gistfile1.txt",
-					contentUrl: fakeGistFileUrl,
+					contentUrl: process.env.HOOF_URL + fakeGistFileUrl,
 					language: "text",
 				},
 			],
@@ -149,21 +148,16 @@ const urlMocks: Record<string, UrlMetadataResponse> = {
 		fakeGistMetadata,
 };
 
-export const urlMetadataHandlers = [
-	http.post<never, { url: string }>(
-		`${env.HOOF_URL}/tasks/url-metadata`,
-		async (req) => {
-			const { url } = await req.request.json();
-			const mock = urlMocks[url] ?? fakeUrlMetadata;
-
-			return Response.json(mock, {
-				headers: {
-					"x-ratelimit-limit": "99999999",
-					"x-ratelimit-remaining": "99999999",
-					"x-ratelimit-reset": "0",
-				},
-			});
-		},
-	),
-	http.get(fakeGistFileUrl, () => new Response("Hello World!")),
-];
+export const urlMetadataRoutes: FastifyPluginAsync = async (http) => {
+	http.post(`/tasks/url-metadata`, async (req, res) => {
+		const { url } = req.body as { url: string };
+		const mock = urlMocks[url] ?? fakeUrlMetadata;
+		res.headers({
+			"x-ratelimit-limit": "99999999",
+			"x-ratelimit-remaining": "99999999",
+			"x-ratelimit-reset": "0",
+		});
+		res.send(mock);
+	});
+	http.get(fakeGistFileUrl, (_, res) => res.send("Hello World!"));
+};

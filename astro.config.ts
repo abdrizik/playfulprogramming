@@ -4,12 +4,11 @@ import icon from "astro-icon";
 import symlink from "symlink-dir";
 import * as path from "path";
 import { AstroUserConfig } from "astro";
+import node from "@astrojs/node";
 
 await symlink(path.resolve("content"), path.resolve("public/content"));
 
-if (process.env.USE_E2E_MOCKS) {
-	await import("./e2e/setup");
-}
+const isServerBuild = process.env.BUILD_OUTPUT === "server";
 
 export default defineConfig({
 	// import.meta.env does not resolve to env variables in the config script!
@@ -20,7 +19,12 @@ export default defineConfig({
 			? `https://${process.env.VERCEL_URL}`
 			: undefined) ??
 		"https://playfulprogramming.com",
-	output: "static",
+	output: isServerBuild ? "server" : "static",
+	adapter: isServerBuild
+		? node({
+				mode: "standalone",
+			})
+		: undefined,
 	image: {
 		service: {
 			entrypoint: "astro/assets/services/sharp",

@@ -1,3 +1,4 @@
+import env from "constants/env";
 import { createComponent } from "../components";
 import { RehypeFunctionComponent } from "../types";
 import { getPersonById } from "utils/api";
@@ -9,7 +10,7 @@ export const transformUser: RehypeFunctionComponent = ({ attributes }) => {
 	const author = getPersonById(user, "en");
 
 	// Prevent author count increasing from breaking e2e tests
-	if (process.env.USE_E2E_MOCKS && author) {
+	if (env.MODE === "e2e" && author) {
 		author.totalPostCount = 100;
 		author.totalWordCount = 10000;
 	}
