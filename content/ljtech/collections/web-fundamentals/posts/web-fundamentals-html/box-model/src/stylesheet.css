@@ -10,7 +10,6 @@
 	--border-color: #202020;
 	--border-solid: solid 1px var(--border-color);
 	--border-dashed: dashed 1px var(--border-color);
-	--border-radius: 1rem;
 
 	--transition: all 0.5s ease;
 }
@@ -80,11 +79,7 @@ body {
 
 .layer-border {
 	background-color: var(--surface-bg);
-	border-radius: var(--border-radius);
-}
-
-.layer-padding {
-	border-radius: var(--border-radius);
+	border-radius: 1rem;
 }
 
 .layer-content {
