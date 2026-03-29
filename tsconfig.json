@@ -21,7 +21,6 @@
 		"jsxImportSource": "preact",
 		"allowSyntheticDefaultImports": true,
 		"lib": ["DOM", "es2024"],
-		"baseUrl": ".",
 		"types": ["@testing-library/jest-dom"],
 		"paths": {
 			"#src/*": ["./src/*"],
