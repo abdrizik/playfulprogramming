@@ -29,13 +29,15 @@ export function NonRecurringEventsCard({ event }: NonRecurringEventsCardProps) {
 
 	return (
 		<li
-			{...getHrefContainerProps(`/events/${event.slug}`)}
+			{...(event.has_event_page
+				? getHrefContainerProps(`/events/${event.slug}`)
+				: undefined)}
 			className={style.recurringEventCard}
 		>
 			<div className={style.cardInnerContainer}>
 				<div className={style.eventLeftContainer}>
 					<a
-						href={`/events/${event.slug}`}
+						href={event.has_event_page ? `/events/${event.slug}` : undefined}
 						className={style.recurringEventCardTitleLink}
 					>
 						<h2

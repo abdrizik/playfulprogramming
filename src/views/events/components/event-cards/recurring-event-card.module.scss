@@ -1,6 +1,7 @@
 @use "src/tokens/index" as *;
 
 .recurringEventCard {
+	@include transition(background-color);
 	background: var(--surface_primary_emphasis-none);
 	border-radius: var(--corner-radius_xl);
 	padding: var(--spc-4x);
@@ -16,6 +17,19 @@
 
 .recurringEventCardTitle {
 	margin: 0;
+}
+
+.recurringEventCard[onclick]:hover {
+	background: var(--surface_primary_emphasis-low);
+
+	.recurringEventCardTitle {
+		text-decoration: underline;
+	}
+}
+
+.recurringEventCard[onclick]:has(.recurringEventCardTitleLink:focus-visible) {
+	background: var(--background_focus);
+	outline: var(--border-width_focus) solid var(--focus-outline_primary);
 }
 
 .topicCardImage {

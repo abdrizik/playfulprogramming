@@ -291,7 +291,11 @@ function CalendarDayPopup({
 								return (
 									<li key={event.slug}>
 										<a
-											href={`/events/${event.slug}`}
+											href={
+												event.has_event_page
+													? `/events/${event.slug}`
+													: undefined
+											}
 											className={style.popupContentLineContainer}
 										>
 											<span className={style.popupContentLine}>
